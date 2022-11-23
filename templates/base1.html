@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO LIST App</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">TODO LIST</h1>
+
+        <form class="ui form" action="/add" method="post">
+            <div class="field">
+                <label>To-Do Title</label>
+                <input type="text" name="title" placeholder="Enter To-Do title..."><br>
+                <label>Author name</label>
+                <input type="text" name="author" placeholder="Work Info..."><br>
+                
+            </div>
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+
+        <hr>
+
+        {% for TODO in todo_details %}
+        <div class="ui segment">
+            <p class="ui big header">{{TODO.id }} | {{ TODO.title }}</p>
+
+            {% if todo.Done == False %}
+            <span class="ui gray label">Not Complete</span>
+            {% else %}
+            <span class="ui green label">Completed</span>
+            {% endif %}
+
+            <a class="ui blue button" href="/update/{{ TODO.id }}">Update</a>
+            <a class="ui red button" href="/delete/{{ TODO.id }}">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

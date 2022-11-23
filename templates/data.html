@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+<button type="button" class="btn btn-dark" id="whatsapp"><a  href="/todos" style="text-decoration: none;">Home Page</a></button>
+
+
+<button type="button" class="btn btn-success" id="exportexcel">EXPORT CSV</button>
+
+    <h1 class="ui center aligned header">To-Do List</h1>
+  <form class="ui form" action="/add" method="post">
+    <div class="field">
+        <label>To-Do Title</label>
+        <input type="text" name="title" placeholder="Enter To-Do title..."><br>
+        <label>To-Do Work Details</label>
+        <input type="text" name="author" placeholder="To-Do Info..."><br>
+        
+    </div>
+    <button class="ui blue button" type="submit">Add</button>
+    
+
+</form>
+
+
+  <table id="data"  class="content-table">
+    <thead>
+      <tr>
+        <th>sno</th>
+        <th>Title</th>
+        <th>Work</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    
+      <tbody>
+      <tr>
+        {% for TODO in todo_details %}
+        <td>{{ TODO.id }}</td>
+        <td>{{ TODO.title }}</td>
+        <td>{{ TODO.Work }}</td>
+        <td>
+          {% if TODO.Done == False %}
+            <span class="ui gray label">Not Complete</span>
+            {% else %}
+            <span class="ui green label">Completed</span>
+            {% endif %}
+          
+            <a class="ui blue button" href="/update1/{{ TODO.id }}">Update To-Do Status</a>
+            <a class="ui red button" href="/delete/{{ TODO.id }}">Delete To-Do List</a>
+            
+        </td> 
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+
+  {% endblock %}
+
+
+
+  {% block scripts %}
+  <script>
+    $(document).ready(function () {
+      $('#data').DataTable({
+        ajax: '/api/data',
+        columns: [
+          {data: 'id'},
+          {data: 'title', searchable: false},
+          {data: 'Work', searchable: true},
+          {data: 'Done', orderable: false, searchable: false}
+        ],
+      });
+    });
+  </script>
+{% endblock %}
+
