@@ -1,1 +1,1 @@
-python-3.10.8
+oauth2client==4.1.3
