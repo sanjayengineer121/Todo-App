@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.sql.expression import select, exists
 import hashlib
-import webbrowser
+
 app = Flask(__name__)
 
 # /// = relative path, //// = absolute path
@@ -151,8 +151,5 @@ def data():
     return {'data': [TODO.to_dict() for TODO in TODO.query]}
 
 if __name__ == "__main__":
-    app.debug=True
-    
-    url="http://127.0.0.1:"+str(8086)+"/"
-    webbrowser.open_new(url)
-    app.run(host='0.0.0.0', port=8086)
+    db.create_all()
+    app.run(debug=True)
